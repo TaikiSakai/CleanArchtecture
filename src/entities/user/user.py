@@ -1,12 +1,14 @@
 from datetime import datetime
 
+from src.entities.user.datas import Role
+
 
 class User:
     def __init__(
         self,
         user_name: str,
         email: str,
-        role: str,
+        role: Role,
         id: int | None = None,
         is_active: bool = True,
         created_at: datetime = datetime.now(),
@@ -33,7 +35,7 @@ class User:
         return self._email
 
     @property
-    def role(self) -> str:
+    def role(self) -> Role:
         return self._role
 
     @property
@@ -53,7 +55,7 @@ class User:
         id: int | None,
         user_name: str,
         email: str,
-        role: str,
+        role: Role,
         is_active: bool,
         created_at: datetime | None,
         updated_at: datetime | None

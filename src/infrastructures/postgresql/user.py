@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
 from src.entities.repositories.user import UserRepositoryI
-from src.entities.user.user import User
+from src.entities.user import User
 from src.infrastructures.models.users import UsersModel
 
 
@@ -26,7 +26,6 @@ class UserRepositoryImpl(UserRepositoryI):
     def create_user(self, user: Annotated[User, User]) -> User:
         user_model = UsersModel.from_entity(user)
         self.db.add(user_model)
-        self.db.commit()
         self.db.flush()
 
         return user_model.to_entity()

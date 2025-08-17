@@ -2,6 +2,7 @@ from datetime import datetime
 from abc import ABC, abstractmethod
 
 from src.entities.user.user import User
+from src.entities.user.datas import Role
 from src.entities.repositories.user import UserRepositoryI
 
 
@@ -11,7 +12,7 @@ class CreateUserUseCaseI(ABC):
         self,
         user_name: str,
         email: str,
-        role: str,
+        role: Role,
         is_active: bool
     ) -> User:
         """Create a new user with the provided details."""
@@ -25,7 +26,7 @@ class CreateUserUseCase(CreateUserUseCaseI):
         self,
         user_name: str,
         email: str,
-        role: str,
+        role: Role,
         is_active: bool
     ) -> User:
         user = User.create(

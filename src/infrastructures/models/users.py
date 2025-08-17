@@ -4,7 +4,8 @@ from sqlalchemy import Integer, String, Boolean, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.db.database import Base
-from src.entities.user.user import User
+from src.entities.user import User
+from src.entities.user.datas import Role
 
 
 class UsersModel(Base):
@@ -24,7 +25,7 @@ class UsersModel(Base):
             email=self.email,
             user_name=self.user_name,
             is_active=self.is_active,
-            role=self.role,
+            role=Role(self.role),
             created_at=self.created_at,
             updated_at=self.updated_at
         )
