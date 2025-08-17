@@ -1,6 +1,7 @@
 from typing import Annotated
 
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import NoResultFound
 from fastapi import HTTPException
 
 from src.entities.repositories.user import UserRepositoryI
@@ -12,16 +13,17 @@ class UserRepositoryImpl(UserRepositoryI):
     def __init__(self, db: Session):
         self.db = db
 
-    def get_all_users(self) -> list[User]:
-        pass
-
     def get_user(self, user_id: int) -> User | None:
-        user = self.db.query(UsersModel).filter(UsersModel.id == user_id).first()
+        try:
+            user = self.db.query(UsersModel).filter(UsersModel.id == user_id).one()
+        except NoResultFound:
+            return None
 
-        if user:
-            return user.to_entity()
+        return user.to_entity()
 
-        raise HTTPException(status_code=404, detail="User not found")
+
+    def get_users(self) -> list[User] | list[None]:
+        pass
 
     def create_user(self, user: Annotated[User, User]) -> User:
         user_model = UsersModel.from_entity(user)

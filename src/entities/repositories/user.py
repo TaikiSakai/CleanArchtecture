@@ -1,14 +1,17 @@
 from abc import ABC, abstractmethod
-from typing import List, Optional
 
-from src.entities.user.user import User
+from src.entities.user import User
 
 
 class UserRepositoryI(ABC):
     @abstractmethod
-    def get_user(self, user_id: int) -> Optional[User]:
+    def get_user(self, user_id: int) -> User | None:
         """Retrieve a user by their ID."""
-    
+
+    @abstractmethod
+    def get_users(self) -> list[User] | list[None]:
+        """Retrieve all users."""
+
     @abstractmethod
     def create_user(self, user: User) -> User:
         """Create a new user in the repository."""
@@ -20,7 +23,3 @@ class UserRepositoryI(ABC):
     @abstractmethod
     def delete_user(self, user_id: int) -> None:
         """Delete a user by their ID."""
-
-    @abstractmethod
-    def get_all_users(self) -> List[User]:
-        """Retrieve all users in the repository."""
